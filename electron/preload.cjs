@@ -12,7 +12,11 @@ contextBridge.exposeInMainWorld("api", {
   deleteGroups: (ip) => ipcRenderer.invoke("delete-groups", ip),
   //
   setTaxes: (ip, data) => ipcRenderer.invoke("set-taxes", ip, data),
+  //
 
+  getChecks: (ip, params) => ipcRenderer.invoke("get-checks", ip, params),
+  deleteSales: (ip) => ipcRenderer.invoke("delete-sales", ip),
+  //
   selectExcelFile: () => ipcRenderer.invoke("select-excel-file"),
   parseExcel: (filePath) => ipcRenderer.invoke("parse-excel", filePath),
 });

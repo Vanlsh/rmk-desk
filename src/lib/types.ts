@@ -52,3 +52,47 @@ export interface ErrorResponse {
   error: true;
   success: false;
 }
+
+export interface CheckParams {
+  date_from: string;
+  date_to: string;
+}
+
+export interface CheckResponse {
+  data: {
+    checks: Check[];
+  };
+  message: string;
+  success: boolean;
+}
+
+export interface Check {
+  details: CheckDetail[];
+  header: CheckHeader;
+}
+
+export interface CheckHeader {
+  cardSum: number;
+  cashSum: number;
+  date: string;
+  isFiscal: boolean;
+  numCheck: number;
+  numSmenLocal: number;
+  numSmenPrro: number;
+  textCheck: string;
+  totalSum: number;
+  typeCheck: number;
+  typePay: number;
+}
+
+export interface CheckDetail {
+  amount: number;
+  barcode: string;
+  code: number;
+  name: string;
+  price: number;
+  serial: string;
+  sum: number;
+  tax: number;
+  uktzed: string;
+}

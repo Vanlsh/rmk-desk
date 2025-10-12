@@ -5,6 +5,8 @@ import type {
   ErrorResponse,
   GroupSaveResponse,
   TaxSaveResponse,
+  CheckParams,
+  CheckResponse,
 } from "./lib/types";
 
 export {};
@@ -44,6 +46,11 @@ declare global {
       ) => Promise<
         SuccessResponse<Record<ProductFieldLabel, unknown>[]> | ErrorResponse
       >;
+      getChecks: (
+        ip: string,
+        params: CheckParams
+      ) => Promise<SuccessResponse<CheckResponse> | ErrorResponse>;
+      deleteSales: (ip: string) => Promise<unknown>;
     };
   }
 }
