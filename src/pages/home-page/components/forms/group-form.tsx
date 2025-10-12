@@ -1,0 +1,97 @@
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormMessage,
+} from "@/components/ui/form";
+import { showIpNotRespondingMessage, showNoIpMessage } from "@/lib/messages";
+import { useIpStore } from "@/store/ip";
+import { useTransition } from "react";
+import { useForm } from "react-hook-form";
+import { groupSchema, type GroupSchema } from "./schemas";
+import { cn } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { groupFields } from "./constants";
+import { Label } from "@/components/ui/label";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { toast } from "sonner";
+
+interface GroupFromProps {
+  className?: string;
+}
+
+export const GroupFrom = ({ className }: GroupFromProps) => {
+  const { ip } = useIpStore();
+  const [isLoading, startTransition] = useTransition();
+
+  const form = useForm<GroupSchema>({
+    resolver: zodResolver(groupSchema),
+    defaultValues: {
+      code: 0,
+      name: "",
+    },
+  });
+
+  const onSubmit = (value: GroupSchema) => {
+    if (!ip) return showNoIpMessage();
+
+    startTransition(async () => {
+      const response = await window.api.setGroups(ip, [value]);
+
+      if (response.error) {
+        showIpNotRespondingMessage();
+        return;
+      }
+
+      if (response.data.success) {
+        toast.success(response.data.message);
+        form.reset();
+      } else {
+        toast.error(response.data.message);
+      }
+    });
+  };
+
+  return (
+    <Form {...form}>
+      <form
+        onSubmit={form.handleSubmit(onSubmit)}
+        className={cn("space-y-2", className)}
+      >
+        <div className="gap-2 grid grid-cols-2">
+          {groupFields.map((groupField) => (
+            <FormField
+              key={groupField.name}
+              control={form.control}
+              name={groupField.name}
+              render={({ field }) => (
+                <FormItem>
+                  <div className="space-y-2 items-center py-1 ">
+                    <Label>{groupField.label}</Label>
+                    <FormControl>
+                      <Input
+                        placeholder={groupField.placeholder}
+                        {...field}
+                        value={
+                          typeof field.value === "string"
+                            ? field.value
+                            : String(field.value)
+                        }
+                      />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          ))}
+        </div>
+        <Button disabled={isLoading} className="ml-auto block">
+          Завантажити групу
+        </Button>
+      </form>
+    </Form>
+  );
+};

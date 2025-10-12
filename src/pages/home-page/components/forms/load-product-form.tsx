@@ -36,46 +36,21 @@ export const LoadProductForm = ({ className }: LoadProductFormProps) => {
   const form = useForm<ProductSchema>({
     resolver: zodResolver(productSchema),
     defaultValues: {
-      code: 23,
-      name: "Молоко 2.5%",
-      serial: "A123",
-      barcode: "4820001234567",
-      globalCode: "UA123456789",
-      tax: 1,
-      price: 32.5,
+      code: 0,
+      name: "",
+      serial: "",
+      barcode: "",
+      globalCode: "",
+      tax: 0,
+      price: 0,
       isWeight: true,
-      mrcPrice: 35.0,
-      amount: 1.0,
-      group: "Молочные продукты",
-      uktzed: "0401201100",
-      unit: "л",
+      mrcPrice: 0,
+      amount: 0,
+      group: "",
+      uktzed: "",
+      unit: "",
     },
   });
-
-  // const onClick = async () => {
-  //   if (!ip) return showNoIpMessage();
-
-  //   const response = await window.api.setArticles(ip, [
-  //     {
-  //       code: 1001,
-  //       name: "Молоко 2.5%",
-  //       serial: "A123",
-  //       barcode: "4820001234567",
-  //       globalCode: "UA123456789",
-  //       tax: 1,
-  //       price: 32.5,
-  //       isWeight: false,
-  //       mrcPrice: 35.0,
-  //       amount: 1.0,
-  //       group: "Молочные продукты",
-  //       uktzed: "0401201100",
-  //       unit: "л",
-  //     },
-  //   ]);
-
-  //   if (response.error) return showIpNotRespondingMessage();
-  //   console.log("🚀 ~ onClick ~ response:", response);
-  // };
 
   const onSubmit = async (value: ProductSchema) => {
     console.log(value);

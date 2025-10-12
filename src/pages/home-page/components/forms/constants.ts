@@ -150,4 +150,19 @@ export const productFields = [
   },
 ] satisfies ProductField[];
 
-export const excelProductsTitle = {};
+export const groupFields = [
+  {
+    label: "Код",
+    name: "code",
+    placeholder: "Введіть код",
+    type: "text",
+    required: true,
+  },
+  {
+    label: "Назва",
+    name: "name",
+    placeholder: "Введіть назву",
+    type: "text",
+    required: true,
+  },
+] as const;

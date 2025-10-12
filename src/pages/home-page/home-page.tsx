@@ -1,13 +1,14 @@
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { LoadProductForm } from "./components/forms/load-product-form";
 import { Separator } from "@/components/ui/separator";
-import { LoadFromXmlFile } from "./components/load-from-xml";
+import { LoadFromXmlFile } from "./components/load-products-from-xml";
 import { DeleteArticlesButton } from "./components/delete-articles-button";
+import { GroupFrom } from "./components/forms/group-form";
 
 export const HomePage = () => {
   return (
-    <div>
-      <Card className="max-w-2xl">
+    <div className="flex w-full gap-2">
+      <Card className="flex-1">
         <CardHeader>
           <CardTitle>Завантаження товару</CardTitle>
         </CardHeader>
@@ -20,6 +21,18 @@ export const HomePage = () => {
           </div>
         </CardFooter>
       </Card>
+
+      <div className="flex-1">
+        <Card>
+          <CardHeader>
+            <CardTitle>Завантаження груп товару</CardTitle>
+          </CardHeader>
+          <CardFooter className="flex-col">
+            <GroupFrom className="w-full" />
+            <Separator className="my-2" />
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 };
