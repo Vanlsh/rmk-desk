@@ -4,6 +4,7 @@ import type {
   SuccessResponse,
   ErrorResponse,
   GroupSaveResponse,
+  TaxSaveResponse,
 } from "./lib/types";
 
 export {};
@@ -20,6 +21,10 @@ declare global {
         ip: string,
         data: T[]
       ) => Promise<SuccessResponse<GroupSaveResponse> | ErrorResponse>;
+      setTaxes: (
+        ip: string,
+        data: T[]
+      ) => Promise<SuccessResponse<TaxSaveResponse> | ErrorResponse>;
       deleteArticles: (
         ip: string
       ) => Promise<

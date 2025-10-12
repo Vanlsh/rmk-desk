@@ -31,8 +31,14 @@ export type ProductFieldLabel =
 
 export type GroupFieldsLabel = "Код" | "Назва";
 export type GroupFieldName = "code" | "name";
+export type TaxFieldsLabel = "Код" | "Назва";
+export type TaxFieldName = "code" | "name";
 
 export const labelToNameMapGroup: Record<GroupFieldsLabel, GroupFieldName> = {
+  Код: "code",
+  Назва: "name",
+};
+export const taxToNameMapGroup: Record<TaxFieldsLabel, TaxFieldName> = {
   Код: "code",
   Назва: "name",
 };
@@ -159,6 +165,23 @@ export const productFields = [
 ] satisfies ProductField[];
 
 export const groupFields = [
+  {
+    label: "Код",
+    name: "code",
+    placeholder: "Введіть код",
+    type: "text",
+    required: true,
+  },
+  {
+    label: "Назва",
+    name: "name",
+    placeholder: "Введіть назву",
+    type: "text",
+    required: true,
+  },
+] as const;
+
+export const taxFields = [
   {
     label: "Код",
     name: "code",

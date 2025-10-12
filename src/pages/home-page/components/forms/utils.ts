@@ -5,12 +5,15 @@ import {
   type GroupFieldsLabel,
   type ProductFieldLabel,
   type ProductFieldName,
+  type TaxFieldName,
+  type TaxFieldsLabel,
 } from "./constants";
 import {
   groupSchema,
   productSchema,
   type GroupSchema,
   type ProductSchema,
+  type TaxSchema,
 } from "./schemas";
 
 export function convertExcelData(
@@ -56,6 +59,49 @@ export const convertExcelGroups = (
     }
     return group;
   });
+};
+
+export const convertExcelTax = (
+  excelData: Record<TaxFieldsLabel, unknown>[]
+) => {
+  return excelData.map((item) => {
+    const group: Record<TaxFieldName, unknown> = {} as Record<
+      TaxFieldName,
+      unknown
+    >;
+
+    for (const [label, value] of Object.entries(item)) {
+      const key = labelToNameMapGroup[label as TaxFieldsLabel];
+      if (key) {
+        group[key] = value;
+      }
+    }
+    return group;
+  });
+};
+
+export const validateTax = (
+  normalizedData: Record<TaxFieldName, unknown>[]
+) => {
+  const valid: TaxSchema[] = [];
+  const errors: {
+    row: Record<TaxFieldName, unknown>;
+    issues: { field: string; message: string }[];
+  }[] = [];
+
+  normalizedData.forEach((item) => {
+    const parsed = groupSchema.safeParse(item);
+    if (parsed.success) {
+      valid.push(parsed.data);
+    } else {
+      const issues = parsed.error.issues.map((issue) => ({
+        field: issue.path.join("."),
+        message: issue.message,
+      }));
+      errors.push({ row: item, issues });
+    }
+  });
+  return { valid, errors };
 };
 
 export const validateGroups = (

@@ -11,6 +11,17 @@ export const groupSchema = z.object({
     message: "Назва групи є обов'язковою",
   }),
 });
+export const taxSchema = z.object({
+  code: z.coerce
+    .number<number>({
+      message: "Код групи має бути числом",
+    })
+    .int({ message: "Код групи має бути цілим числом" })
+    .min(1, { message: "Код групи не може бути менше 1" }),
+  name: z.string().min(1, {
+    message: "Назва групи є обов'язковою",
+  }),
+});
 
 export const productSchema = z.object({
   code: z.coerce
@@ -74,3 +85,4 @@ export const productSchema = z.object({
 
 export type ProductSchema = z.infer<typeof productSchema>;
 export type GroupSchema = z.infer<typeof groupSchema>;
+export type TaxSchema = z.infer<typeof taxSchema>;

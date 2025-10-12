@@ -18,6 +18,10 @@ export interface Group {
   code: number;
   name: string;
 }
+export interface Tax {
+  code: number;
+  name: string;
+}
 export interface ArticleSaveResponse {
   success: boolean;
   message: string;
@@ -32,6 +36,12 @@ export interface GroupSaveResponse {
   updated_groups: Group[];
 }
 
+export interface TaxSaveResponse {
+  success: boolean;
+  message: string;
+  saved_groups: Tax[];
+  updated_groups: Tax[];
+}
 export interface SuccessResponse<T> {
   success: true;
   error: false;
