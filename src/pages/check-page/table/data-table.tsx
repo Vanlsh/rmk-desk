@@ -173,9 +173,7 @@ export function DataTable<TData, TValue>({
                 {expandedRows[row.id] && renderSubRow && (
                   <TableRow>
                     <TableCell
-                      colSpan={
-                        row.getVisibleCells().length + (renderSubRow ? 1 : 0)
-                      }
+                      colSpan={row.getVisibleCells().length + 1}
                       className="bg-muted/30"
                     >
                       {renderSubRow(row)}
