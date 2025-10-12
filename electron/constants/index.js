@@ -1,0 +1,15 @@
+export const nameToLabelMap = {
+  code: "Код",
+  name: "Назва",
+  serial: "Серійний номер",
+  barcode: "Штрихкод",
+  globalCode: "Глобальний код",
+  tax: "Податок",
+  price: "Ціна",
+  isWeight: "Ваговий товар",
+  mrcPrice: "MRC Ціна",
+  amount: "Кількість",
+  group: "Група",
+  uktzed: "УКТЗЕД",
+  unit: "Од. вим.",
+};

@@ -20,6 +20,9 @@ declare global {
       ) => Promise<
         SuccessResponse<{ success: boolean; message: string }> | ErrorResponse
       >;
+      saveValidationErrors: (
+        errors: unknown
+      ) => Promise<SuccessResponse<string> | ErrorResponse>;
       selectExcelFile: () => Promise<string | null>;
       parseExcel: (
         path: string

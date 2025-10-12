@@ -11,6 +11,7 @@ import {
   deleteSales,
 } from "./data/index.js";
 import XLSX from "xlsx";
+import { saveArticlesLog } from "./lib/index.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -92,6 +93,10 @@ app.whenReady().then(() => {
     } catch (error) {
       return { success: false, error: error.message };
     }
+  });
+
+  ipcMain.handle("save-validation-errors", (_event, errors) => {
+    return saveArticlesLog(errors);
   });
 });
 

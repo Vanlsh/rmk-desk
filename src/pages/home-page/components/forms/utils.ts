@@ -36,11 +36,11 @@ export const validateProducts = (
 ) => {
   const valid: ProductSchema[] = [];
   const errors: {
-    rowIndex: number;
+    row: Record<ProductFieldName, unknown>;
     issues: { field: string; message: string }[];
   }[] = [];
 
-  normalizedData.forEach((item, index) => {
+  normalizedData.forEach((item) => {
     const parsed = productSchema.safeParse(item);
     if (parsed.success) {
       valid.push(parsed.data);
@@ -49,7 +49,7 @@ export const validateProducts = (
         field: issue.path.join("."),
         message: issue.message,
       }));
-      errors.push({ rowIndex: index + 1, issues });
+      errors.push({ row: item, issues });
     }
   });
 
