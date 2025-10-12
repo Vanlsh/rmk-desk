@@ -22,7 +22,12 @@ function createWindow() {
     webPreferences: {
       preload: path.join(__dirname, "preload.cjs"),
     },
+    icon: path.join(__dirname, "build/logo.icns"),
   });
+  console.log(
+    `🚀 ~ createWindow ~  path.join(__dirname, "build/logo.icns"):`,
+    path.join(__dirname, "build/logo.icns")
+  );
 
   // 👇 Use this during dev
   const devServerURL =
@@ -36,6 +41,7 @@ function createWindow() {
     win.webContents.openDevTools({ mode: "detach" });
   } else {
     win.loadFile(path.join(__dirname, "../dist/index.html"));
+    win.webContents.openDevTools({ mode: "detach" });
   }
 }
 

@@ -4,11 +4,20 @@ import path from "path";
 import tailwindcss from "@tailwindcss/vite";
 
 // https://vite.dev/config/
-export default defineConfig({
+
+const config = defineConfig({
   plugins: [react(), tailwindcss()],
+  base: "./",
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  build: {
+    outDir: "dist", // ensure same as your electron loadFile() path
+    emptyOutDir: true,
+  },
 });
+console.log("🚀 ~ config:", config);
+
+export default config;
