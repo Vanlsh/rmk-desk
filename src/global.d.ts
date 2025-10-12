@@ -25,6 +25,11 @@ declare global {
       ) => Promise<
         SuccessResponse<{ success: boolean; message: string }> | ErrorResponse
       >;
+      deleteGroups: (
+        ip: string
+      ) => Promise<
+        SuccessResponse<{ success: boolean; message: string }> | ErrorResponse
+      >;
       saveValidationErrors: (
         errors: unknown
       ) => Promise<SuccessResponse<string> | ErrorResponse>;

@@ -29,6 +29,14 @@ export type ProductFieldLabel =
   | "Од. вим."
   | "Ваговий товар";
 
+export type GroupFieldsLabel = "Код" | "Назва";
+export type GroupFieldName = "code" | "name";
+
+export const labelToNameMapGroup: Record<GroupFieldsLabel, GroupFieldName> = {
+  Код: "code",
+  Назва: "name",
+};
+
 export const labelToNameMap: Record<ProductFieldLabel, ProductFieldName> = {
   Код: "code",
   Назва: "name",

@@ -9,8 +9,10 @@ contextBridge.exposeInMainWorld("api", {
 
   //
   setGroups: (ip, data) => ipcRenderer.invoke("set-groups", ip, data),
+  deleteGroups: (ip) => ipcRenderer.invoke("delete-groups", ip),
   //
   setTaxes: (ip, data) => ipcRenderer.invoke("set-taxes", ip, data),
+
   selectExcelFile: () => ipcRenderer.invoke("select-excel-file"),
   parseExcel: (filePath) => ipcRenderer.invoke("parse-excel", filePath),
 });

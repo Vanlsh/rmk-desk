@@ -4,6 +4,8 @@ import { Separator } from "@/components/ui/separator";
 import { LoadFromXmlFile } from "./components/load-products-from-xml";
 import { DeleteArticlesButton } from "./components/delete-articles-button";
 import { GroupFrom } from "./components/forms/group-form";
+import { LoadGroupsFromExcel } from "./components/load-groups-from-excel";
+import { DeleteGroupButton } from "./components/delete-groups-button";
 
 export const HomePage = () => {
   return (
@@ -30,6 +32,10 @@ export const HomePage = () => {
           <CardFooter className="flex-col">
             <GroupFrom className="w-full" />
             <Separator className="my-2" />
+            <div className="flex justify-between w-full">
+              <DeleteGroupButton />
+              <LoadGroupsFromExcel />
+            </div>
           </CardFooter>
         </Card>
       </div>
