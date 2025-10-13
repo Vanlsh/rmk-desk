@@ -9,7 +9,10 @@
     "build": "tsc -b && vite build",
     "preview": "vite preview",
     "lint": "eslint .",
-    "electron:build": "npm run build && electron-builder"
+    "electron:build": "npm run build && electron-builder",
+    "start": "electron-forge start",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
@@ -26,6 +29,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "date-fns": "^4.1.0",
+    "electron-squirrel-startup": "^1.0.1",
     "lucide-react": "^0.545.0",
     "next-themes": "^0.4.6",
     "react": "^19.1.1",
@@ -41,6 +45,14 @@
     "zustand": "^5.0.8"
   },
   "devDependencies": {
+    "@electron-forge/cli": "^7.10.2",
+    "@electron-forge/maker-deb": "^7.10.2",
+    "@electron-forge/maker-rpm": "^7.10.2",
+    "@electron-forge/maker-squirrel": "^7.10.2",
+    "@electron-forge/maker-zip": "^7.10.2",
+    "@electron-forge/plugin-auto-unpack-natives": "^7.10.2",
+    "@electron-forge/plugin-fuses": "^7.10.2",
+    "@electron/fuses": "^1.8.0",
     "@eslint/js": "^9.36.0",
     "@types/node": "^24.7.1",
     "@types/react": "^19.1.16",
@@ -50,7 +62,6 @@
     "concurrently": "^9.2.1",
     "cross-env": "^10.1.0",
     "electron": "^38.2.2",
-    "electron-builder": "^26.0.12",
     "eslint": "^9.36.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.22",
