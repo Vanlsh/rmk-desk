@@ -49,6 +49,13 @@ export const LoadTaxFromExcel = ({ className }: LoadTaxFromExcelProps) => {
 
       const response = await window.api.setTaxes(ip, valid);
 
+      if (errors.length > 0) {
+        setTaxErrors(errors);
+        toast.warning(
+          `Було знайдено ${errors.length} рядків з помилками. Збережіть лог-файл.`
+        );
+      }
+
       if (response.error) {
         showIpNotRespondingMessage();
         return;
@@ -59,17 +66,7 @@ export const LoadTaxFromExcel = ({ className }: LoadTaxFromExcelProps) => {
         return;
       }
 
-      if (errors.length > 0) {
-        setTaxErrors(errors);
-        toast.warning(
-          `Було знайдено ${errors.length} рядків з помилками. Збережіть лог-файл.`
-        );
-      }
-
       toast.success(response.data.message);
-
-      console.log("🚀 ~ onLoadFile ~ errors:", errors);
-      console.log("🚀 ~ onLoadFile ~ valid:", valid);
     });
   };
 
@@ -84,10 +81,17 @@ export const LoadTaxFromExcel = ({ className }: LoadTaxFromExcelProps) => {
       toast.error("Щось пішло не так. Спробуйте ще раз");
     }
   };
+
+  const loadTestFile = async () => {
+    const result = await window.api.generateExampleTaxes();
+    if (result.success) toast.success(result.message);
+    else toast.error(result.message);
+  };
+
   return (
-    <div className={cn("flex gap-2 flex-col", className)}>
+    <div className={cn("flex gap-2 flex-col ml-auto", className)}>
       <Button disabled={isLoading} onClick={onLoadFile}>
-        Завантажити податок з .xml
+        Завантажити податок з .xls
         <Download />
       </Button>
       {taxErrors && (
@@ -96,6 +100,9 @@ export const LoadTaxFromExcel = ({ className }: LoadTaxFromExcelProps) => {
           <FileWarning />
         </Button>
       )}
+      <Button variant="outline" onClick={loadTestFile}>
+        Завантажити приклад .xls файлу
+      </Button>
     </div>
   );
 };

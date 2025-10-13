@@ -51,6 +51,18 @@ declare global {
         params: CheckParams
       ) => Promise<SuccessResponse<CheckResponse> | ErrorResponse>;
       deleteSales: (ip: string) => Promise<unknown>;
+      generateExampleProducts: () => Promise<{
+        success: boolean;
+        message: string;
+      }>;
+      generateExampleTaxes: () => Promise<{
+        success: boolean;
+        message: string;
+      }>;
+      generateExampleGroups: () => Promise<{
+        success: boolean;
+        message: string;
+      }>;
     };
   }
 }
