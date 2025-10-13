@@ -19,4 +19,8 @@ contextBridge.exposeInMainWorld("api", {
   //
   selectExcelFile: () => ipcRenderer.invoke("select-excel-file"),
   parseExcel: (filePath) => ipcRenderer.invoke("parse-excel", filePath),
+  generateExampleProducts: () =>
+    ipcRenderer.invoke("generate-example-products"),
+  generateExampleTaxes: () => ipcRenderer.invoke("generate-example-taxes"),
+  generateExampleGroups: () => ipcRenderer.invoke("generate-example-groups"),
 });

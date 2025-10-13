@@ -39,8 +39,18 @@ export const LoadFromXmlFile = () => {
 
       const convertedData = convertExcelData(result.data);
       const { valid, errors } = validateProducts(convertedData);
+      console.log("🚀 ~ onLoadFile ~ errors:", errors);
+      console.log("🚀 ~ onLoadFile ~ valid:", valid);
 
       const response = await window.api.setArticles(ip, valid);
+      console.log("🚀 ~ onLoadFile ~ response:", response);
+
+      if (errors.length > 0) {
+        setProductErrors(errors);
+        toast.warning(
+          `Було знайдено ${errors.length} рядків з помилками. Збережіть лог-файл.`
+        );
+      }
 
       if (response.error) {
         showIpNotRespondingMessage();
@@ -50,13 +60,6 @@ export const LoadFromXmlFile = () => {
       if (!response.data.success) {
         toast.error(response.data.message);
         return;
-      }
-
-      if (errors.length > 0) {
-        setProductErrors(errors);
-        toast.warning(
-          `Було знайдено ${errors.length} рядків з помилками. Збережіть лог-файл.`
-        );
       }
 
       toast.success(response.data.message);
@@ -76,18 +79,29 @@ export const LoadFromXmlFile = () => {
     }
   };
 
+  const loadTestFile = async () => {
+    const result = await window.api.generateExampleProducts();
+    if (result.success) toast.success(result.message);
+    else toast.error(result.message);
+  };
+
   return (
-    <div className="flex gap-2 flex-col">
-      <Button disabled={isLoading} onClick={onLoadFile}>
-        Завантажити товари з .xml
-        <Download />
-      </Button>
-      {productErrors && (
-        <Button variant="ghost" onClick={onSaveLogs}>
-          Зберегти лог помилок
-          <FileWarning />
+    <div className="space-y-2">
+      <div className="flex gap-2 flex-col">
+        <Button disabled={isLoading} onClick={onLoadFile}>
+          Завантажити товари з .xls
+          <Download />
         </Button>
-      )}
+        {productErrors && (
+          <Button variant="ghost" onClick={onSaveLogs}>
+            Зберегти лог помилок
+            <FileWarning />
+          </Button>
+        )}
+      </div>
+      <Button variant="outline" onClick={loadTestFile}>
+        Завантажити приклад .xls файлу
+      </Button>
     </div>
   );
 };

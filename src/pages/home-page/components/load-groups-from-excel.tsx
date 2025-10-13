@@ -51,6 +51,13 @@ export const LoadGroupsFromExcel = ({
 
       const response = await window.api.setGroups(ip, valid);
 
+      if (errors.length > 0) {
+        setGroupErrors(errors);
+        toast.warning(
+          `Було знайдено ${errors.length} рядків з помилками. Збережіть лог-файл.`
+        );
+      }
+
       if (response.error) {
         showIpNotRespondingMessage();
         return;
@@ -59,13 +66,6 @@ export const LoadGroupsFromExcel = ({
       if (!response.data.success) {
         toast.error(response.data.message);
         return;
-      }
-
-      if (errors.length > 0) {
-        setGroupErrors(errors);
-        toast.warning(
-          `Було знайдено ${errors.length} рядків з помилками. Збережіть лог-файл.`
-        );
       }
 
       toast.success(response.data.message);
@@ -86,10 +86,17 @@ export const LoadGroupsFromExcel = ({
       toast.error("Щось пішло не так. Спробуйте ще раз");
     }
   };
+
+  const loadTestFile = async () => {
+    const result = await window.api.generateExampleGroups();
+    if (result.success) toast.success(result.message);
+    else toast.error(result.message);
+  };
+
   return (
     <div className={cn("flex gap-2 flex-col", className)}>
       <Button disabled={isLoading} onClick={onLoadFile}>
-        Завантажити групи з .xml
+        Завантажити групи з .xls
         <Download />
       </Button>
       {groupErrors && (
@@ -98,6 +105,9 @@ export const LoadGroupsFromExcel = ({
           <FileWarning />
         </Button>
       )}
+      <Button variant="outline" onClick={loadTestFile}>
+        Завантажити приклад .xls файлу
+      </Button>
     </div>
   );
 };

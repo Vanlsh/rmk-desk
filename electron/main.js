@@ -12,6 +12,7 @@ import {
 } from "./data/index.js";
 import XLSX from "xlsx";
 import { saveArticlesLog } from "./lib/index.js";
+import { exampleData, exampleGroups, exampleTaxes } from "./constants/index.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -25,10 +26,6 @@ function createWindow() {
     },
     icon: path.join(__dirname, "build/logo.icns"),
   });
-  console.log(
-    `🚀 ~ createWindow ~  path.join(__dirname, "build/logo.icns"):`,
-    path.join(__dirname, "build/logo.icns")
-  );
 
   // 👇 Use this during dev
   const devServerURL =
@@ -42,7 +39,6 @@ function createWindow() {
     win.webContents.openDevTools({ mode: "detach" });
   } else {
     win.loadFile(path.join(__dirname, "../dist/index.html"));
-    win.webContents.openDevTools({ mode: "detach" });
   }
 }
 
@@ -104,6 +100,81 @@ app.whenReady().then(() => {
 
   ipcMain.handle("save-validation-errors", (_event, errors) => {
     return saveArticlesLog(errors);
+  });
+
+  ipcMain.handle("generate-example-products", async () => {
+    try {
+      // create worksheet from JS object
+      const worksheet = XLSX.utils.json_to_sheet(exampleData);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Товари");
+
+      // ask user where to save
+      const { canceled, filePath } = await dialog.showSaveDialog({
+        title: "Зберегти приклад Excel-файлу",
+        defaultPath: "example_products.xlsx",
+        filters: [{ name: "Excel Files", extensions: ["xlsx"] }],
+      });
+
+      if (canceled || !filePath)
+        return { success: false, message: "Відмінено" };
+
+      // write file
+      XLSX.writeFile(workbook, filePath);
+
+      return { success: true, message: "Файл прикладу збережено успішно" };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  });
+
+  // --- New handler for taxes ---
+  ipcMain.handle("generate-example-taxes", async () => {
+    try {
+      const worksheet = XLSX.utils.json_to_sheet(exampleTaxes);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Податки");
+
+      const { canceled, filePath } = await dialog.showSaveDialog({
+        title: "Зберегти приклад Excel-файлу податків",
+        defaultPath: "example_taxes.xlsx",
+        filters: [{ name: "Excel Files", extensions: ["xlsx"] }],
+      });
+
+      if (canceled || !filePath)
+        return { success: false, message: "Відмінено" };
+
+      XLSX.writeFile(workbook, filePath);
+      return {
+        success: true,
+        message: "Файл прикладу податків збережено успішно",
+      };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
+  });
+
+  // --- New handler for groups ---
+  ipcMain.handle("generate-example-groups", async () => {
+    try {
+      const worksheet = XLSX.utils.json_to_sheet(exampleGroups);
+      const workbook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(workbook, worksheet, "Групи");
+
+      const { canceled, filePath } = await dialog.showSaveDialog({
+        title: "Зберегти приклад Excel-файлу груп",
+        defaultPath: "example_groups.xlsx",
+        filters: [{ name: "Excel Files", extensions: ["xlsx"] }],
+      });
+
+      if (canceled || !filePath)
+        return { success: false, message: "Відмінено" };
+
+      XLSX.writeFile(workbook, filePath);
+      return { success: true, message: "Файл прикладу груп збережено успішно" };
+    } catch (error) {
+      return { success: false, message: error.message };
+    }
   });
 });
 

@@ -28,6 +28,7 @@ export const HomePage = () => {
           <Separator className="my-2" />
           <div className="flex justify-between w-full">
             <DeleteArticlesButton />
+
             <LoadFromXmlFile />
           </div>
         </CardFooter>
@@ -60,7 +61,7 @@ export const HomePage = () => {
           <CardFooter className="flex-col">
             <TaxForm className="w-full" />
             <Separator className="my-2" />
-            <LoadTaxFromExcel className="ml-auto block" />
+            <LoadTaxFromExcel className="ml-auto " />
           </CardFooter>
         </Card>
       </div>
