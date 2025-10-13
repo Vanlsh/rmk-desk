@@ -13,6 +13,7 @@ import {
 import XLSX from "xlsx";
 import { saveArticlesLog } from "./lib/index.js";
 import { exampleData, exampleGroups, exampleTaxes } from "./constants/index.js";
+import "./lib/quit.cjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
