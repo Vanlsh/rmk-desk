@@ -10,6 +10,12 @@ module.exports = {
     {
       name: "@electron-forge/maker-squirrel",
       config: {
+        oneClick: false, // ⬅ disables silent install
+        perMachine: false, // install per-user (true = all users)
+        allowToChangeInstallationDirectory: true, // ⬅ allows folder selection
+        createDesktopShortcut: true,
+        createStartMenuShortcut: true,
+        shortcutName: "RMK Desk",
         authors: "Exellio",
         description:
           "Powerful desktop application for managing prudacts, taxes, and groups with ease.",
