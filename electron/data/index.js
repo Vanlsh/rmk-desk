@@ -166,3 +166,22 @@ export const deleteSales = async ({ ip }) => {
     return { error: true, success: false };
   }
 };
+
+export const deleteProducts = async ({ ip }) => {
+  try {
+    console.log("🚀 ~ deleteProducts ~ getArticles:", `http://${ip}:${port}`);
+    const body = {
+      method: "getArticles",
+    };
+    const response = await fetch(`http://${ip}:${port}`, {
+      method: "POST",
+      body: JSON.stringify(body),
+      headers: { "Content-Type": "application/json" },
+    });
+
+    const value = await response.json();
+    return { success: true, error: false, data: value };
+  } catch {
+    return { error: true, success: false };
+  }
+};

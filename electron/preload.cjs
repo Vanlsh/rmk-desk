@@ -3,6 +3,8 @@ const { contextBridge, ipcRenderer } = require("electron");
 contextBridge.exposeInMainWorld("api", {
   ping: () => console.log("pong"),
   setArticles: (ip, data) => ipcRenderer.invoke("set-articles", ip, data),
+  getArticles: (ip) => ipcRenderer.invoke("get-articles", ip),
+
   deleteArticles: (ip) => ipcRenderer.invoke("delete-articles", ip),
   saveValidationErrors: (errors) =>
     ipcRenderer.invoke("save-validation-errors", errors),

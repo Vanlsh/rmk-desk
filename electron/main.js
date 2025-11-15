@@ -9,6 +9,7 @@ import {
   deleteGroups,
   deleteArticles,
   deleteSales,
+  deleteProducts,
 } from "./data/index.js";
 import XLSX from "xlsx";
 import { saveArticlesLog } from "./lib/index.js";
@@ -51,6 +52,10 @@ app.whenReady().then(() => {
 
   ipcMain.handle("set-articles", async (_, ip, data) => {
     return await setArticles({ ip, data });
+  });
+
+  ipcMain.handle("get-articles", async (_, ip) => {
+    return await deleteProducts({ ip });
   });
 
   ipcMain.handle("set-groups", async (_, ip, data) => {

@@ -10,7 +10,6 @@ import { showIpNotRespondingMessage, showNoIpMessage } from "@/lib/messages";
 import { useIpStore } from "@/store/ip";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { productFields } from "./constants";
 import { Input } from "@/components/ui/input";
 import { Checkbox } from "@/components/ui/checkbox";
 import { Label } from "@/components/ui/label";
@@ -21,21 +20,31 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { productSchema, type ProductSchema } from "./schemas";
+
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
 import { useState } from "react";
+import { productSchema, type ProductSchema } from "@/pages/utils/schemas";
+import { productFields } from "@/pages/utils/constants";
 
 interface LoadProductFormProps {
   className?: string;
+  defaultValues?: ProductSchema;
+  onHandleSuccess?: () => void;
+  shouldReset?: true;
 }
-export const LoadProductForm = ({ className }: LoadProductFormProps) => {
+export const LoadProductForm = ({
+  className,
+  defaultValues,
+  onHandleSuccess,
+  shouldReset,
+}: LoadProductFormProps) => {
   const { ip } = useIpStore();
   const [isLoading, setIsLoading] = useState(false);
 
   const form = useForm<ProductSchema>({
     resolver: zodResolver(productSchema),
-    defaultValues: {
+    defaultValues: defaultValues || {
       code: 0,
       name: "",
       serial: "",
@@ -49,6 +58,7 @@ export const LoadProductForm = ({ className }: LoadProductFormProps) => {
       group: "",
       uktzed: "",
       unit: "",
+      freePrice: false,
     },
   });
 
@@ -60,12 +70,16 @@ export const LoadProductForm = ({ className }: LoadProductFormProps) => {
     setIsLoading(false);
     if (response.error) return showIpNotRespondingMessage();
     if (response.data.success) {
-      return toast.success(response.data.message);
+      toast.success(response.data.message);
+
+      if (shouldReset) {
+        form.reset();
+      }
+      return onHandleSuccess && onHandleSuccess();
     }
     toast.error(response.data.message);
   };
 
-  console.log(productFields);
   return (
     <>
       <Form {...form}>
@@ -137,7 +151,7 @@ export const LoadProductForm = ({ className }: LoadProductFormProps) => {
             ))}
           </div>
           <Button disabled={isLoading} className="ml-auto block">
-            Завантажити товар
+            {defaultValues ? "Оновити товар" : "Завантажити товар"}
           </Button>
         </form>
       </Form>

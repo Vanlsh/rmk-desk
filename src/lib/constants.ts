@@ -1,4 +1,25 @@
-export const routing = [
-  { path: "/", label: "Програмування товарів" },
+export const newProductRoute: Routing = {
+  path: "/new-product",
+  label: "Додати товар",
+};
+
+export const programRouts: Routing[] = [
+  { path: "/", label: "Товари", subPath: [newProductRoute] },
+  { path: "/group", label: "Групи" },
+  { path: "/tax", label: "Податки" },
+];
+
+export const routing: Routing[] = [
+  {
+    path: "/",
+    label: "Програмування",
+    subPath: [...programRouts, newProductRoute],
+  },
   { path: "/check", label: "Журнал" },
-] as const;
+];
+
+export interface Routing {
+  path: string;
+  label: string;
+  subPath?: Routing[];
+}

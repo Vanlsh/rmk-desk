@@ -81,6 +81,7 @@ export const productSchema = z.object({
   isWeight: z.boolean({
     message: "Ознака вагового товару є обов'язковою",
   }),
+  freePrice: z.boolean(),
 });
 
 export type ProductSchema = z.infer<typeof productSchema>;

@@ -12,6 +12,7 @@ export interface Product {
   group: string;
   uktzed: string;
   unit: string;
+  freePrice: boolean;
 }
 
 export interface Group {
@@ -95,4 +96,9 @@ export interface CheckDetail {
   sum: number;
   tax: number;
   uktzed: string;
+}
+
+export interface ProductResponse {
+  success: boolean;
+  articles: Product[];
 }

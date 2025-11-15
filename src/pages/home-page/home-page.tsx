@@ -5,10 +5,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { LoadProductForm } from "./components/forms/load-product-form";
+// import { LoadProductForm } from "./components/forms/load-product-form";
 import { Separator } from "@/components/ui/separator";
-import { LoadFromXmlFile } from "./components/load-products-from-xml";
-import { DeleteArticlesButton } from "./components/delete-articles-button";
+// import { LoadFromXmlFile } from "./components/load-products-from-xml";
+// import { DeleteArticlesButton } from "./components/delete-articles-button";
 import { GroupFrom } from "./components/forms/group-form";
 import { LoadGroupsFromExcel } from "./components/load-groups-from-excel";
 import { DeleteGroupButton } from "./components/delete-groups-button";
@@ -19,7 +19,7 @@ import { LoadTaxFromExcel } from "./components/load-tax-from-excel";
 export const HomePage = () => {
   return (
     <div className="flex w-full gap-2">
-      <Card className="flex-1">
+      {/* <Card className="flex-1">
         <CardHeader>
           <CardTitle>Завантаження товару</CardTitle>
         </CardHeader>
@@ -28,11 +28,10 @@ export const HomePage = () => {
           <Separator className="my-2" />
           <div className="flex justify-between w-full">
             <DeleteArticlesButton />
-
             <LoadFromXmlFile />
           </div>
         </CardFooter>
-      </Card>
+      </Card> */}
 
       <div className="flex-1 space-y-2">
         <Card>

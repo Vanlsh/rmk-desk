@@ -5,8 +5,8 @@ import { useIpStore } from "@/store/ip";
 import { Download, FileWarning } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
-import { convertExcelGroups, validateGroups } from "./forms/utils";
-import type { GroupFieldName } from "./forms/constants";
+import { convertExcelGroups, validateGroups } from "../../utils/utils";
+import type { GroupFieldName } from "../../utils/constants";
 
 interface LoadGroupsFromExcelProps {
   className?: string;

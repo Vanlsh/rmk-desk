@@ -5,8 +5,8 @@ import { useIpStore } from "@/store/ip";
 import { Download, FileWarning } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
-import { convertExcelTax, validateTax } from "./forms/utils";
-import type { TaxFieldName } from "./forms/constants";
+import { convertExcelTax, validateTax } from "../../utils/utils";
+import type { TaxFieldName } from "../../utils/constants";
 
 interface LoadTaxFromExcelProps {
   className?: string;

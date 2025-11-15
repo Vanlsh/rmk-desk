@@ -8,11 +8,11 @@ export type ProductFieldName =
   | "tax"
   | "price"
   | "isWeight"
-  | "mrcPrice"
   | "amount"
   | "group"
   | "uktzed"
-  | "unit";
+  | "unit"
+  | "freePrice";
 
 export type ProductFieldLabel =
   | "Код"
@@ -22,12 +22,12 @@ export type ProductFieldLabel =
   | "Глобальний код"
   | "Податок"
   | "Ціна"
-  | "MRC Ціна"
   | "Кількість"
   | "Група"
   | "УКТЗЕД"
   | "Од. вим."
-  | "Ваговий товар";
+  | "Ваговий товар"
+  | "Довільна ціна";
 
 export type GroupFieldsLabel = "Код" | "Назва";
 export type GroupFieldName = "code" | "name";
@@ -52,11 +52,11 @@ export const labelToNameMap: Record<ProductFieldLabel, ProductFieldName> = {
   Податок: "tax",
   Ціна: "price",
   "Ваговий товар": "isWeight",
-  "MRC Ціна": "mrcPrice",
   Кількість: "amount",
   Група: "group",
   УКТЗЕД: "uktzed",
   "Од. вим.": "unit",
+  "Довільна ціна": "freePrice",
 };
 
 export type ProductField = {
@@ -119,13 +119,13 @@ export const productFields = [
     required: true,
   },
 
-  {
-    label: "MRC Ціна",
-    name: "mrcPrice",
-    placeholder: "Введіть MRC ціну",
-    type: "text",
-    required: true,
-  },
+  // {
+  //   label: "MRC Ціна",
+  //   name: "mrcPrice",
+  //   placeholder: "Введіть MRC ціну",
+  //   type: "text",
+  //   required: true,
+  // },
   {
     label: "Кількість",
     name: "amount",
@@ -158,6 +158,13 @@ export const productFields = [
   {
     label: "Ваговий товар",
     name: "isWeight",
+    placeholder: "",
+    type: "checkbox",
+    required: false,
+  },
+  {
+    label: "Довільна ціна",
+    name: "freePrice",
     placeholder: "",
     type: "checkbox",
     required: false,

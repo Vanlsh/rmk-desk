@@ -7,6 +7,7 @@ import type {
   TaxSaveResponse,
   CheckParams,
   CheckResponse,
+  ProductResponse,
 } from "./lib/types";
 
 export {};
@@ -19,6 +20,9 @@ declare global {
         ip: string,
         data: Product[]
       ) => Promise<SuccessResponse<ArticleSaveResponse> | ErrorResponse>;
+      getArticles: (
+        ip: string
+      ) => Promise<SuccessResponse<ProductResponse> | ErrorResponse>;
       setGroups: (
         ip: string,
         data: T[]

@@ -12,6 +12,8 @@ import { useIpStore } from "@/store/ip";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { RefreshCw } from "lucide-react";
+import { useProductStore } from "@/store/product";
 const ipSchema = z.object({
   ip: z.ipv4(),
 });
@@ -20,6 +22,8 @@ type IpSchema = z.infer<typeof ipSchema>;
 
 export const IpForms = () => {
   const { ip, setIp } = useIpStore();
+  const { fetchProduct } = useProductStore();
+
   const form = useForm<IpSchema>({
     resolver: zodResolver(ipSchema),
     defaultValues: {
@@ -33,6 +37,7 @@ export const IpForms = () => {
     form.reset(value);
     toast.success("Ip адрес збережено");
   };
+
   return (
     <Form {...form}>
       <form
@@ -51,7 +56,14 @@ export const IpForms = () => {
             </FormItem>
           )}
         />
-        {form.formState.isDirty && <Button type="submit">Зберегти</Button>}
+        <div className="flex gap-2">
+          {form.formState.isDirty && <Button type="submit">Зберегти</Button>}
+          {!form.formState.isDirty && ip && (
+            <Button type="button" onClick={() => fetchProduct(ip)}>
+              <RefreshCw />
+            </Button>
+          )}
+        </div>
       </form>
     </Form>
   );

@@ -1,11 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { showIpNotRespondingMessage, showNoIpMessage } from "@/lib/messages";
+import type { ProductFieldName } from "@/pages/utils/constants";
+import { convertExcelData, validateProducts } from "@/pages/utils/utils";
 import { useIpStore } from "@/store/ip";
 import { Download, FileWarning } from "lucide-react";
 import { useState, useTransition } from "react";
 import { toast } from "sonner";
-import { convertExcelData, validateProducts } from "./forms/utils";
-import type { ProductFieldName } from "./forms/constants";
+
 interface Errors {
   row: Record<ProductFieldName, unknown>;
   issues: {
@@ -86,8 +87,8 @@ export const LoadFromXmlFile = () => {
   };
 
   return (
-    <div className="space-y-2">
-      <div className="flex gap-2 flex-col">
+    <div className=" flex gap-2 ">
+      <div className="flex gap-2 ">
         <Button disabled={isLoading} onClick={onLoadFile}>
           Завантажити товари з .xls
           <Download />
