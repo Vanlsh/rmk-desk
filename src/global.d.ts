@@ -67,6 +67,14 @@ declare global {
         success: boolean;
         message: string;
       }>;
+      downloadExcel: (
+        data: Record<string, unknown>[],
+        label: string,
+        name: string
+      ) => Promise<{
+        success: boolean;
+        message: string;
+      }>;
     };
   }
 }

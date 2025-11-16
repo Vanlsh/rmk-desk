@@ -43,9 +43,9 @@ export const productSchema = z.object({
     message: "Штрихкод є обов'язковим",
   }),
 
-  globalCode: z.string({
-    message: "Глобальний код є обов'язковим",
-  }),
+  // globalCode: z.string({
+  //   message: "Глобальний код є обов'язковим",
+  // }),
 
   tax: z.coerce
     .number<number>({
@@ -54,13 +54,15 @@ export const productSchema = z.object({
     .int({ message: "Ставка ПДВ має бути цілим числом" })
     .min(0, { message: "Ставка ПДВ не може бути від’ємною" }),
 
-  price: z.coerce.number<number>({
-    message: "Ціна є обов'язковою",
-  }),
+  price: z.coerce
+    .number<number>({
+      message: "Ціна є обов'язковою",
+    })
+    .min(0.01),
 
-  mrcPrice: z.coerce.number<number>({
-    message: "МРЦ є обов'язковою",
-  }),
+  // mrcPrice: z.coerce.number<number>({
+  //   message: "МРЦ є обов'язковою",
+  // }),
 
   amount: z.coerce.number<number>({
     message: "Кількість є обов'язковою",

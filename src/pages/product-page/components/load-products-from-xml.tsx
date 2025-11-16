@@ -40,11 +40,7 @@ export const LoadFromXmlFile = () => {
 
       const convertedData = convertExcelData(result.data);
       const { valid, errors } = validateProducts(convertedData);
-      console.log("🚀 ~ onLoadFile ~ errors:", errors);
-      console.log("🚀 ~ onLoadFile ~ valid:", valid);
-
       const response = await window.api.setArticles(ip, valid);
-      console.log("🚀 ~ onLoadFile ~ response:", response);
 
       if (errors.length > 0) {
         setProductErrors(errors);
@@ -64,17 +60,12 @@ export const LoadFromXmlFile = () => {
       }
 
       toast.success(response.data.message);
-
-      console.log("🚀 ~ onLoadFile ~ errors:", errors);
-      console.log("🚀 ~ onLoadFile ~ valid:", valid);
     });
   };
 
   const onSaveLogs = async () => {
-    console.log("🚀 ~ onSaveLogs ~ productErrors:", productErrors);
     if (!productErrors) return;
     const response = await window.api.saveValidationErrors(productErrors);
-    console.log("🚀 ~ onSaveLogs ~ response:", response);
     if (response.success) {
       toast.success(response.data);
     }

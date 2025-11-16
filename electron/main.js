@@ -187,3 +187,28 @@ app.whenReady().then(() => {
 app.on("window-all-closed", () => {
   if (process.platform !== "darwin") app.quit();
 });
+
+ipcMain.handle("download-excel", async (_event, data, name, label) => {
+  try {
+    // create worksheet from JS object
+    const worksheet = XLSX.utils.json_to_sheet(data);
+    const workbook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(workbook, worksheet, label);
+
+    // ask user where to save
+    const { canceled, filePath } = await dialog.showSaveDialog({
+      title: "Зберегти " + label,
+      defaultPath: `${name}.xlsx`,
+      filters: [{ name: "Excel Files", extensions: ["xlsx"] }],
+    });
+
+    if (canceled || !filePath) return { success: false, message: "Відмінено" };
+
+    // write file
+    XLSX.writeFile(workbook, filePath);
+
+    return { success: true, message: "Файл збережено успішно" };
+  } catch (error) {
+    return { success: false, message: error.message };
+  }
+});

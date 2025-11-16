@@ -1,4 +1,9 @@
-export type ProductFieldType = "number" | "text" | "checkbox" | "select";
+export type ProductFieldType =
+  | "number"
+  | "text"
+  | "checkbox"
+  | "select"
+  | "search-select";
 export type ProductFieldName =
   | "code"
   | "name"
@@ -97,13 +102,13 @@ export const productFields = [
     type: "text",
     required: true,
   },
-  {
-    label: "Глобальний код",
-    name: "globalCode",
-    placeholder: "Введіть глобальний код",
-    type: "text",
-    required: true,
-  },
+  // {
+  //   label: "Глобальний код",
+  //   name: "globalCode",
+  //   placeholder: "Введіть глобальний код",
+  //   type: "text",
+  //   required: true,
+  // },
   {
     label: "Податок",
     name: "tax",
@@ -126,18 +131,18 @@ export const productFields = [
   //   type: "text",
   //   required: true,
   // },
-  {
-    label: "Кількість",
-    name: "amount",
-    placeholder: "Введіть кількість",
-    type: "text",
-    required: true,
-  },
+  // {
+  //   label: "Кількість",
+  //   name: "amount",
+  //   placeholder: "Введіть кількість",
+  //   type: "text",
+  //   required: true,
+  // },
   {
     label: "Група",
     name: "group",
     placeholder: "Введіть групу",
-    type: "text",
+    type: "search-select",
     required: true,
   },
   {

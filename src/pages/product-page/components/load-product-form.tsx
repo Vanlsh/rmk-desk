@@ -23,9 +23,11 @@ import {
 
 import { cn } from "@/lib/utils";
 import { toast } from "sonner";
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { productSchema, type ProductSchema } from "@/pages/utils/schemas";
 import { productFields } from "@/pages/utils/constants";
+import { useProductStore } from "@/store/product";
+import { ComboboxEditableBase } from "@/components/common/search-select";
 
 interface LoadProductFormProps {
   className?: string;
@@ -41,7 +43,14 @@ export const LoadProductForm = ({
 }: LoadProductFormProps) => {
   const { ip } = useIpStore();
   const [isLoading, setIsLoading] = useState(false);
+  const { product, fetchProduct } = useProductStore();
 
+  const groups = useMemo(
+    () => [...new Set(product?.map((p) => p.group).filter(Boolean))],
+    [product]
+  );
+
+  console.log(groups);
   const form = useForm<ProductSchema>({
     resolver: zodResolver(productSchema),
     defaultValues: defaultValues || {
@@ -49,11 +58,11 @@ export const LoadProductForm = ({
       name: "",
       serial: "",
       barcode: "",
-      globalCode: "",
+      // globalCode: "",
       tax: 0,
       price: 0,
-      isWeight: true,
-      mrcPrice: 0,
+      isWeight: false,
+      // mrcPrice: 0,
       amount: 0,
       group: "",
       uktzed: "",
@@ -64,9 +73,19 @@ export const LoadProductForm = ({
 
   const onSubmit = async (value: ProductSchema) => {
     console.log(value);
+
     if (!ip) return showNoIpMessage();
+
+    const isExist = product?.some((item) => value.code === item.code);
+
+    if (isExist && !defaultValues) {
+      const confirmed = confirm("Товар з таким кодом вже існує, оновити його?");
+      if (!confirmed) return;
+    }
+
     setIsLoading(true);
     const response = await window.api.setArticles(ip, [value]);
+    console.log("🚀 ~ onSubmit ~ response:", response);
     setIsLoading(false);
     if (response.error) return showIpNotRespondingMessage();
     if (response.data.success) {
@@ -75,6 +94,7 @@ export const LoadProductForm = ({
       if (shouldReset) {
         form.reset();
       }
+      fetchProduct(ip);
       return onHandleSuccess && onHandleSuccess();
     }
     toast.error(response.data.message);
@@ -100,12 +120,17 @@ export const LoadProductForm = ({
                         <Label>{productField.label}</Label>
                         <FormControl>
                           <Input
+                            disabled={
+                              defaultValues &&
+                              productField.name === "code" &&
+                              true
+                            }
                             placeholder={productField.placeholder}
                             {...field}
                             value={
                               typeof field.value === "string"
                                 ? field.value
-                                : String(field.value)
+                                : String(field.value === 0 ? "" : field.value)
                             }
                           />
                         </FormControl>
@@ -142,6 +167,16 @@ export const LoadProductForm = ({
                             </SelectContent>
                           </Select>
                         </FormControl>
+                      </div>
+                    )}
+                    {productField.type === "search-select" && (
+                      <div className="space-y-2 items-center py-1">
+                        <Label>{productField.label}</Label>
+                        <ComboboxEditableBase
+                          value={field.value.toString()}
+                          onChange={field.onChange}
+                          items={groups}
+                        />
                       </div>
                     )}
                     <FormMessage />

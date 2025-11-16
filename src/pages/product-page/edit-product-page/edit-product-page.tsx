@@ -16,10 +16,7 @@ const EditProductPage = () => {
   const { code } = useParams<{ code: string }>();
   const { product } = useProductStore();
 
-  console.log("🚀 ~ EditProductPage ~ code:", code);
-
   const currentProduct = product?.find((item) => item.code === Number(code));
-  console.log("🚀 ~ EditProductPage ~ currentProduct:", currentProduct);
 
   const handleSuccess = () => {
     navigate("/");

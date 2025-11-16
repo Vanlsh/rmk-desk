@@ -1,10 +1,21 @@
 import { Button } from "@/components/ui/button";
+import { labelToNameMap } from "@/pages/utils/constants";
+import { covertToExcelData } from "@/pages/utils/utils";
 import { useProductStore } from "@/store/product";
 
 const DownloadProductButton = () => {
   const { product } = useProductStore();
   const handleExportToExcel = () => {
-    console.log("DownloadProductButton", product);
+    if (!product) return;
+    console.log("🚀 ~ DownloadProductButton ~ product:", product);
+    const data = covertToExcelData(product, labelToNameMap);
+    console.log("🚀 ~ handleExportToExcel ~ labelToNameMap:", labelToNameMap);
+    console.log("DownloadProductButton", data);
+    try {
+      window.api.downloadExcel(data, "products", "Товари");
+    } catch (error) {
+      console.error("handleExportToExcel", error);
+    }
   };
 
   console.log("🚀 ~ DownloadProductButton ~ product:", product);

@@ -3,8 +3,13 @@ export const newProductRoute: Routing = {
   label: "Додати товар",
 };
 
+export const editProductRoute: Routing = {
+  path: "/edit-product/:code",
+  label: "Додати товар",
+};
+
 export const programRouts: Routing[] = [
-  { path: "/", label: "Товари", subPath: [newProductRoute] },
+  { path: "/", label: "Товари", subPath: [newProductRoute, editProductRoute] },
   { path: "/group", label: "Групи" },
   { path: "/tax", label: "Податки" },
 ];

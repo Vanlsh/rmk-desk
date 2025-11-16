@@ -25,4 +25,6 @@ contextBridge.exposeInMainWorld("api", {
     ipcRenderer.invoke("generate-example-products"),
   generateExampleTaxes: () => ipcRenderer.invoke("generate-example-taxes"),
   generateExampleGroups: () => ipcRenderer.invoke("generate-example-groups"),
+  downloadExcel: (data, name, label) =>
+    ipcRenderer.invoke("download-excel", data, name, label),
 });

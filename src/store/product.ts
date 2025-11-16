@@ -30,3 +30,8 @@ export const useProductStore = create<ProductStore>()((set) => ({
 }));
 
 export const selectProduct = (state: ProductStore) => state.product;
+
+export const selectUniqueGroups = (state: ProductStore) =>
+  state.product
+    ? [...new Set(state.product.map((p) => p.group).filter(Boolean))]
+    : null;

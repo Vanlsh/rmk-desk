@@ -1,4 +1,4 @@
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import { LoadProductForm } from "../components/load-product-form";
 import { Card, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import {
@@ -11,10 +11,6 @@ import {
 } from "@/components/ui/breadcrumb";
 
 const NewProductPage = () => {
-  const navigate = useNavigate();
-  const handleSuccess = () => {
-    navigate("/");
-  };
   return (
     <div className="space-y-3">
       <Breadcrumb>
@@ -35,7 +31,7 @@ const NewProductPage = () => {
           <CardTitle>Завантаження товару</CardTitle>
         </CardHeader>
         <CardFooter className="flex-col">
-          <LoadProductForm className="w-full" onHandleSuccess={handleSuccess} />
+          <LoadProductForm className="w-full" shouldReset />
         </CardFooter>
       </Card>
     </div>

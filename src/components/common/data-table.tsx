@@ -48,7 +48,7 @@ export function DataTable<TData, TValue>({
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              {renderSubRow && <TableHead />} {/* extra column for toggle */}
+              {renderSubRow && <TableHead />}
               {headerGroup.headers.map((header) => (
                 <TableHead key={header.id}>
                   {header.isPlaceholder
