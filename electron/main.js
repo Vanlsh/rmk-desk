@@ -19,6 +19,12 @@ import "./lib/quit.cjs";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function createWindow() {
+  console.log("🚀 ~ createWindow ~ __dirname:", __dirname);
+
+  console.log(
+    `🚀 ~ createWindow ~ path.join(__dirname, "icon.ico"):`,
+    path.join(__dirname, "icon.ico")
+  );
   const win = new BrowserWindow({
     icon: path.join(__dirname, "icon.ico"),
     width: 1000,
