@@ -43,18 +43,20 @@ export const LoadProductForm = ({
 }: LoadProductFormProps) => {
   const { ip } = useIpStore();
   const [isLoading, setIsLoading] = useState(false);
-  const { product, fetchProduct } = useProductStore();
+  const { product, fetchProduct, additionalGroups } = useProductStore();
+  const maxCode = product ? Math.max(...product.map((p) => p.code)) + 1 : 1;
+  const groups = useMemo(() => {
+    const base = product?.map((p) => p.group).filter(Boolean) ?? [];
 
-  const groups = useMemo(
-    () => [...new Set(product?.map((p) => p.group).filter(Boolean))],
-    [product]
-  );
+    // merge + dedupe
+    return Array.from(new Set([...base, ...additionalGroups]));
+  }, [product, additionalGroups]);
 
   console.log(groups);
   const form = useForm<ProductSchema>({
     resolver: zodResolver(productSchema),
     defaultValues: defaultValues || {
-      code: 0,
+      code: maxCode,
       name: "",
       serial: "",
       barcode: "",

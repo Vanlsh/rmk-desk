@@ -18,6 +18,7 @@ import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
 import { groupSchema, type GroupSchema } from "@/pages/utils/schemas";
 import { groupFields } from "@/pages/utils/constants";
+import { useProductStore } from "@/store/product";
 
 interface GroupFromProps {
   className?: string;
@@ -25,6 +26,7 @@ interface GroupFromProps {
 
 export const GroupFrom = ({ className }: GroupFromProps) => {
   const { ip } = useIpStore();
+  const { updateGroup, addGroup } = useProductStore();
   const [isLoading, startTransition] = useTransition();
 
   const form = useForm<GroupSchema>({
@@ -49,6 +51,12 @@ export const GroupFrom = ({ className }: GroupFromProps) => {
       if (response.data.success) {
         toast.success(response.data.message);
         form.reset();
+        const { saved_groups, updated_groups } = response.data;
+
+        updated_groups.forEach((group) =>
+          updateGroup({ previousName: value.name, newName: group.name })
+        );
+        saved_groups.forEach((group) => addGroup(group.name));
       } else {
         toast.error(response.data.message);
       }
@@ -78,7 +86,7 @@ export const GroupFrom = ({ className }: GroupFromProps) => {
                         value={
                           typeof field.value === "string"
                             ? field.value
-                            : String(field.value)
+                            : String(field.value === 0 ? "" : field.value)
                         }
                       />
                     </FormControl>

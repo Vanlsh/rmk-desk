@@ -9,14 +9,16 @@ import { showIpNotRespondingMessage, showNoIpMessage } from "@/lib/messages";
 import { useIpStore } from "@/store/ip";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { taxSchema, type TaxSchema } from "../../../utils/schemas";
+
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { taxFields } from "../../../utils/constants";
+
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { taxSchema, type TaxSchema } from "@/pages/utils/schemas";
+import { taxFields } from "@/pages/utils/constants";
 
 interface TaxFormProps {
   className?: string;
@@ -76,7 +78,7 @@ export const TaxForm = ({ className }: TaxFormProps) => {
                         value={
                           typeof field.value === "string"
                             ? field.value
-                            : String(field.value)
+                            : String(field.value === 0 ? "" : field.value)
                         }
                       />
                     </FormControl>
