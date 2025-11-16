@@ -4,11 +4,11 @@ import { useProductStore } from "@/store/product";
 
 import { ProductTableWrapper } from "./components/product-table";
 import { Card, CardContent } from "@/components/ui/card";
-import { DeleteArticlesButton } from "../home-page/components/delete-articles-button";
 import { LoadFromXmlFile } from "./components/load-products-from-xml";
 import { Button } from "@/components/ui/button";
 import { NavLink } from "react-router-dom";
 import { newProductRoute } from "@/lib/constants";
+import { DeleteArticlesButton } from "./components/delete-articles-button";
 
 export interface Product {
   code: number;

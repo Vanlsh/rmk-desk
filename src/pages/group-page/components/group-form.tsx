@@ -9,14 +9,15 @@ import { showIpNotRespondingMessage, showNoIpMessage } from "@/lib/messages";
 import { useIpStore } from "@/store/ip";
 import { useTransition } from "react";
 import { useForm } from "react-hook-form";
-import { groupSchema, type GroupSchema } from "../../../utils/schemas";
+
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { groupFields } from "../../../utils/constants";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { toast } from "sonner";
+import { groupSchema, type GroupSchema } from "@/pages/utils/schemas";
+import { groupFields } from "@/pages/utils/constants";
 
 interface GroupFromProps {
   className?: string;
