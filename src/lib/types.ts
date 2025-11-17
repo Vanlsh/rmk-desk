@@ -8,7 +8,7 @@ export interface Product {
   price: number;
   isWeight: boolean;
   // mrcPrice: number;
-  amount: number;
+  amount?: number;
   group: string;
   uktzed: string;
   unit: string;

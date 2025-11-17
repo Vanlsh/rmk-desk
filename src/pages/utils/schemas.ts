@@ -64,9 +64,11 @@ export const productSchema = z.object({
   //   message: "МРЦ є обов'язковою",
   // }),
 
-  amount: z.coerce.number<number>({
-    message: "Кількість є обов'язковою",
-  }),
+  amount: z.coerce
+    .number<number>({
+      message: "Кількість є обов'язковою",
+    })
+    .optional(),
 
   group: z.string({
     message: "Група товару є обов'язковою",

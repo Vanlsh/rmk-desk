@@ -39,9 +39,10 @@ export const LoadFromXmlFile = () => {
       }
 
       const convertedData = convertExcelData(result.data);
+
       const { valid, errors } = validateProducts(convertedData);
       const response = await window.api.setArticles(ip, valid);
-
+      console.log("🚀 ~ onLoadFile ~ response:", errors);
       if (errors.length > 0) {
         setProductErrors(errors);
         toast.warning(
