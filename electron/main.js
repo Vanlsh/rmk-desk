@@ -104,7 +104,7 @@ app.whenReady().then(() => {
       const workbook = XLSX.readFile(filePath);
       const sheetName = workbook.SheetNames[0];
       const worksheet = workbook.Sheets[sheetName];
-      const json = XLSX.utils.sheet_to_json(worksheet);
+      const json = XLSX.utils.sheet_to_json(worksheet, { defval: "" });
       return { success: true, data: json };
     } catch (error) {
       return { success: false, error: error.message };

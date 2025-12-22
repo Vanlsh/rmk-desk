@@ -39,8 +39,14 @@ export const LoadFromXmlFile = () => {
       }
 
       const convertedData = convertExcelData(result.data);
+      const shouldKeepAmounts = window.confirm(
+        "Використати кількість з файлу? Натисніть «Скасувати», щоб встановити 0 для всіх товарів."
+      );
+      const normalizedProducts = shouldKeepAmounts
+        ? convertedData
+        : convertedData.map((product) => ({ ...product, amount: 0 }));
 
-      const { valid, errors } = validateProducts(convertedData);
+      const { valid, errors } = validateProducts(normalizedProducts);
       const response = await window.api.setArticles(ip, valid);
       console.log("🚀 ~ onLoadFile ~ response:", errors);
       if (errors.length > 0) {
