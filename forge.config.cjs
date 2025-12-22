@@ -7,6 +7,19 @@ module.exports = {
     icon: "./electron/icon",
   },
   rebuildConfig: {},
+  publishers: [
+    {
+      name: "@electron-forge/publisher-github",
+      config: {
+        repository: {
+          owner: "Vanlsh",
+          name: "rmk-desk",
+        },
+        prerelease: false,
+        draft: false,
+      },
+    },
+  ],
   makers: [
     {
       name: "@electron-forge/maker-squirrel",
