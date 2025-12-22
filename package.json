@@ -12,7 +12,10 @@
     "electron:build": "npm run build && electron-builder",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "release:patch": "npm version patch && npm run electron:build",
+    "release:minor": "npm version minor && npm run electron:build",
+    "release:major": "npm version major && npm run electron:build"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
