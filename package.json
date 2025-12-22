@@ -1,6 +1,8 @@
 {
-  "name": "rmk-desk",
+  "name": "combo-desk",
   "version": "0.1.0",
+  "description": "RMK Desk desktop application",
+  "author": "Exellio <exellio@support.com>",
   "private": true,
   "type": "module",
   "main": "electron/main.js",
@@ -13,9 +15,9 @@
     "start": "electron-forge start",
     "package": "electron-forge package",
     "make": "electron-forge make",
-    "release:patch": "npm version patch && npm run electron:build",
-    "release:minor": "npm version minor && npm run electron:build",
-    "release:major": "npm version major && npm run electron:build"
+    "release:patch": "npm version patch && npm run build && npx electron-builder --publish=always",
+    "release:minor": "npm version minor && npm run build && npx electron-builder --publish=always",
+    "release:major": "npm version major && npm run build && npx electron-builder --publish=always"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
@@ -85,7 +87,7 @@
   },
   "build": {
     "appId": "com.exellio.rmkdesk",
-    "productName": "RMK Desk",
+    "productName": "Combo Desk",
     "directories": {
       "buildResources": "assets",
       "output": "release"
@@ -104,14 +106,14 @@
     ],
     "win": {
       "target": "nsis",
-      "icon": "build/logo.ico",
-      "nsis": {
-        "oneClick": false,
-        "allowToChangeInstallationDirectory": true,
-        "createDesktopShortcut": true,
-        "createStartMenuShortcut": true,
-        "artifactName": "${productName}-Setup-${version}.exe"
-      }
+      "icon": "build/logo.ico"
+    },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "artifactName": "${productName}-Setup-${version}.exe"
     },
     "mac": {
       "target": "dmg",
