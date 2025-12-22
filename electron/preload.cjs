@@ -27,4 +27,6 @@ contextBridge.exposeInMainWorld("api", {
   generateExampleGroups: () => ipcRenderer.invoke("generate-example-groups"),
   downloadExcel: (data, name, label) =>
     ipcRenderer.invoke("download-excel", data, name, label),
+  checkForUpdates: () => ipcRenderer.invoke("check-for-updates"),
+  installUpdate: () => ipcRenderer.invoke("install-update"),
 });

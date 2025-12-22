@@ -1,6 +1,6 @@
 {
   "name": "rmk-desk",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "private": true,
   "type": "module",
   "main": "electron/main.js",
@@ -12,7 +12,10 @@
     "electron:build": "npm run build && electron-builder",
     "start": "electron-forge start",
     "package": "electron-forge package",
-    "make": "electron-forge make"
+    "make": "electron-forge make",
+    "release:patch": "npm version patch && npm run electron:build",
+    "release:minor": "npm version minor && npm run electron:build",
+    "release:major": "npm version major && npm run electron:build"
   },
   "dependencies": {
     "@electron-toolkit/preload": "^3.0.2",
@@ -32,6 +35,7 @@
     "clsx": "^2.1.1",
     "cmdk": "^1.1.1",
     "date-fns": "^4.1.0",
+    "electron-updater": "^6.3.5",
     "electron-squirrel-startup": "^1.0.1",
     "lucide-react": "^0.545.0",
     "next-themes": "^0.4.6",
@@ -85,12 +89,20 @@
       "buildResources": "assets",
       "output": "release"
     },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "Vanlsh",
+        "repo": "rmk-desk",
+        "releaseType": "release"
+      }
+    ],
     "files": [
       "dist/**/*",
       "electron/**/*"
     ],
     "win": {
-      "target": "portable",
+      "target": "nsis",
       "icon": "build/icon.ico"
     },
     "mac": {
