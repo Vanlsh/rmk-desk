@@ -35,6 +35,8 @@ function createWindow() {
     icon: iconPath,
     width: 1000,
     height: 700,
+    frame: false,
+    titleBarStyle: "hidden",
     autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.cjs"),
@@ -68,6 +70,28 @@ app.whenReady().then(() => {
   autoUpdater.on("download-progress", (info) => {
     const [win] = BrowserWindow.getAllWindows();
     if (win) win.webContents.send("update-download-progress", info);
+  });
+
+  ipcMain.handle("window-control", (_event, action) => {
+    const win = BrowserWindow.getFocusedWindow();
+    if (!win) return;
+    switch (action) {
+      case "minimize":
+        win.minimize();
+        break;
+      case "maximize":
+        win.maximize();
+        break;
+      case "unmaximize":
+        win.unmaximize();
+        break;
+      case "close":
+        win.close();
+        break;
+      default:
+        break;
+    }
+    return { isMaximized: win.isMaximized() };
   });
 
   ipcMain.handle("set-articles", async (_, ip, data) => {

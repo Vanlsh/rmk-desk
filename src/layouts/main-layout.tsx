@@ -8,6 +8,7 @@ import { routing } from "@/lib/constants";
 import { Outlet } from "react-router-dom";
 import { showIpNotRespondingMessage } from "@/lib/messages";
 import { CheckUpdatesButton } from "./components/check-updates-button";
+import { WindowControls } from "@/components/common/window-controls";
 
 export const MainLayout = () => {
   const { ip } = useIpStore();
@@ -23,11 +24,14 @@ export const MainLayout = () => {
 
   return (
     <div className="px-2">
-      <div className="p-2 h-16 flex justify-between gap-2 fixed top-0 left-0 right-0 bg-background border-b">
-        <IpForms />
-        <div className="flex items-center gap-2">
+      <div className="p-2 h-16 flex justify-between gap-2 fixed top-0 left-0 right-0 bg-background border-b select-none app-drag">
+        <div className="flex items-center gap-2 app-no-drag">
+          <IpForms />
           <Navigation routes={[...routing]} />
           <CheckUpdatesButton />
+        </div>
+        <div className="app-no-drag">
+          <WindowControls />
         </div>
       </div>
 

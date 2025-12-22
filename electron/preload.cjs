@@ -33,4 +33,5 @@ contextBridge.exposeInMainWorld("api", {
     ipcRenderer.on("update-download-progress", (_event, info) =>
       callback(info)
     ),
+  windowControl: (action) => ipcRenderer.invoke("window-control", action),
 });

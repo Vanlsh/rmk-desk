@@ -94,6 +94,9 @@ declare global {
           total: number;
         }) => void
       ) => void;
+      windowControl: (
+        action: "minimize" | "maximize" | "unmaximize" | "close"
+      ) => Promise<{ isMaximized: boolean } | void>;
     };
   }
 }
