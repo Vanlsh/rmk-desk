@@ -65,6 +65,10 @@ app.whenReady().then(() => {
   autoUpdater.autoDownload = false;
   autoUpdater.autoInstallOnAppQuit = true;
   autoUpdater.allowPrerelease = false;
+  autoUpdater.on("download-progress", (info) => {
+    const [win] = BrowserWindow.getAllWindows();
+    if (win) win.webContents.send("update-download-progress", info);
+  });
 
   ipcMain.handle("set-articles", async (_, ip, data) => {
     return await setArticles({ ip, data });

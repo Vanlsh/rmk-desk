@@ -5,6 +5,7 @@ import { RefreshCw } from "lucide-react";
 
 export const CheckUpdatesButton = () => {
   const [isChecking, setIsChecking] = useState(false);
+  const [progress, setProgress] = useState<number | null>(null);
 
   const handleClick = async () => {
     setIsChecking(true);
@@ -41,8 +42,14 @@ export const CheckUpdatesButton = () => {
       );
     } finally {
       setIsChecking(false);
+      setProgress(null);
     }
   };
+
+  // subscribe to download progress
+  window.api.onUpdateDownloadProgress((info) => {
+    setProgress(info.percent);
+  });
 
   return (
     <Button
@@ -51,9 +58,17 @@ export const CheckUpdatesButton = () => {
       onClick={handleClick}
       disabled={isChecking}
       className="gap-2"
+      title={
+        progress !== null ? `Завантажено ${progress.toFixed(0)}%` : undefined
+      }
     >
       Перевірити оновлення
       <RefreshCw className="h-4 w-4" />
+      {progress !== null && (
+        <span className="text-xs text-muted-foreground">
+          {progress.toFixed(0)}%
+        </span>
+      )}
     </Button>
   );
 };
