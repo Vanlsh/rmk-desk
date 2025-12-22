@@ -44,7 +44,7 @@ export const LoadProductForm = ({
   const { ip } = useIpStore();
   const [isLoading, setIsLoading] = useState(false);
   const { product, fetchProduct, additionalGroups } = useProductStore();
-  const maxCode = product ? Math.max(...product.map((p) => p.code)) + 1 : 1;
+  const maxCode = product ? Math.max(...product.map((p) => p.code), 0) + 1 : 1;
   const groups = useMemo(() => {
     const base = product?.map((p) => p.group).filter(Boolean) ?? [];
 
@@ -58,7 +58,6 @@ export const LoadProductForm = ({
     defaultValues: defaultValues || {
       code: maxCode,
       name: "",
-      serial: "",
       barcode: "",
       // globalCode: "",
       tax: 0,
@@ -175,9 +174,9 @@ export const LoadProductForm = ({
                       <div className="space-y-2 items-center py-1">
                         <Label>{productField.label}</Label>
                         <ComboboxEditableBase
-                          value={field.value.toString()}
+                          value={field.value?.toString() || ""}
                           onChange={field.onChange}
-                          items={groups}
+                          items={groups.filter((item) => !!item) || []}
                         />
                       </div>
                     )}

@@ -1,14 +1,13 @@
 export interface Product {
   code: number;
   name: string;
-  serial: string;
   barcode: string;
   // globalCode: string;
   tax: number;
   price: number;
   isWeight: boolean;
   // mrcPrice: number;
-  amount?: number;
+  amount: number;
   group: string;
   uktzed: string;
   unit: string;

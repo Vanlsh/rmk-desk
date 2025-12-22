@@ -89,13 +89,6 @@ export const productFields = [
     required: true,
   },
   {
-    label: "Серійний номер",
-    name: "serial",
-    placeholder: "Введіть серійний номер",
-    type: "text",
-    required: true,
-  },
-  {
     label: "Штрихкод",
     name: "barcode",
     placeholder: "Введіть штрихкод",

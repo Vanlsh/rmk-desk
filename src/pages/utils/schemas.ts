@@ -35,10 +35,6 @@ export const productSchema = z.object({
     message: "Назва товару є обов'язковою",
   }),
 
-  serial: z.string({
-    message: "Серійний номер є обов'язковим",
-  }),
-
   barcode: z.string({
     message: "Штрихкод є обов'язковим",
   }),
@@ -64,11 +60,9 @@ export const productSchema = z.object({
   //   message: "МРЦ є обов'язковою",
   // }),
 
-  amount: z.coerce
-    .number<number>({
-      message: "Кількість є обов'язковою",
-    })
-    .optional(),
+  amount: z.coerce.number<number>({
+    message: "Кількість є обов'язковою",
+  }),
 
   group: z.string({
     message: "Група товару є обов'язковою",
