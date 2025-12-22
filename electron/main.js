@@ -18,6 +18,10 @@ import { exampleData, exampleGroups, exampleTaxes } from "./constants/index.js";
 import "./lib/quit.cjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const iconPath =
+  process.platform === "win32"
+    ? path.join(__dirname, "../build/logo.ico")
+    : path.join(__dirname, "../build/logo.icns");
 const { autoUpdater } = updaterPkg;
 
 function createWindow() {
@@ -28,14 +32,13 @@ function createWindow() {
     path.join(__dirname, "icon.ico")
   );
   const win = new BrowserWindow({
-    icon: path.join(__dirname, "icon.ico"),
+    icon: iconPath,
     width: 1000,
     height: 700,
     autoHideMenuBar: true,
     webPreferences: {
       preload: path.join(__dirname, "preload.cjs"),
     },
-    icon: path.join(__dirname, "build/logo.icns"),
   });
 
   // 👇 Use this during dev
