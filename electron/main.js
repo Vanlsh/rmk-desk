@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain, dialog } from "electron";
+import updaterPkg from "electron-updater";
 import path from "path";
 import { fileURLToPath } from "url";
 import {
@@ -17,6 +18,7 @@ import { exampleData, exampleGroups, exampleTaxes } from "./constants/index.js";
 import "./lib/quit.cjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const { autoUpdater } = updaterPkg;
 
 function createWindow() {
   console.log("🚀 ~ createWindow ~ __dirname:", __dirname);
@@ -56,6 +58,10 @@ app.whenReady().then(() => {
   app.on("activate", () => {
     if (BrowserWindow.getAllWindows().length === 0) createWindow();
   });
+
+  autoUpdater.autoDownload = false;
+  autoUpdater.autoInstallOnAppQuit = true;
+  autoUpdater.allowPrerelease = false;
 
   ipcMain.handle("set-articles", async (_, ip, data) => {
     return await setArticles({ ip, data });
@@ -187,6 +193,53 @@ app.whenReady().then(() => {
       return { success: true, message: "Файл прикладу груп збережено успішно" };
     } catch (error) {
       return { success: false, message: error.message };
+    }
+  });
+
+  ipcMain.handle("check-for-updates", async () => {
+    if (!app.isPackaged) {
+      return {
+        status: "unavailable",
+        message: "Оновлення доступні лише у зібраній версії програми",
+      };
+    }
+    try {
+      const result = await autoUpdater.checkForUpdates();
+      const version = result?.updateInfo?.version;
+
+      if (!version || version === app.getVersion()) {
+        return { status: "up-to-date" };
+      }
+
+      await autoUpdater.downloadUpdate();
+      return { status: "downloaded", version };
+    } catch (error) {
+      const message = error?.message || "Не вдалося перевірити оновлення";
+      if (
+        message.includes("No published versions") ||
+        message.includes("No update available")
+      ) {
+        return { status: "up-to-date" };
+      }
+      return { status: "error", message };
+    }
+  });
+
+  ipcMain.handle("install-update", async () => {
+    try {
+      if (!app.isPackaged) {
+        return {
+          status: "unavailable",
+          message: "Встановлення оновлення можливе лише у зібраній програмі",
+        };
+      }
+      autoUpdater.quitAndInstall();
+      return { status: "installing" };
+    } catch (error) {
+      return {
+        status: "error",
+        message: error?.message || "Не вдалося встановити оновлення",
+      };
     }
   });
 });

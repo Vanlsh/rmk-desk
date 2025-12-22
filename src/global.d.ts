@@ -75,6 +75,17 @@ declare global {
         success: boolean;
         message: string;
       }>;
+      checkForUpdates: () => Promise<
+        | { status: "up-to-date" }
+        | { status: "downloaded"; version: string }
+        | { status: "unavailable"; message: string }
+        | { status: "error"; message: string }
+      >;
+      installUpdate: () => Promise<
+        | { status: "installing" }
+        | { status: "unavailable"; message: string }
+        | { status: "error"; message: string }
+      >;
     };
   }
 }
