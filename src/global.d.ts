@@ -86,6 +86,14 @@ declare global {
         | { status: "unavailable"; message: string }
         | { status: "error"; message: string }
       >;
+      onUpdateDownloadProgress: (
+        callback: (info: {
+          percent: number;
+          bytesPerSecond: number;
+          transferred: number;
+          total: number;
+        }) => void
+      ) => void;
     };
   }
 }
