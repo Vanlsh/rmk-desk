@@ -68,7 +68,11 @@ export const convertExcelGroups = (
     for (const [label, value] of Object.entries(item)) {
       const key = labelToNameMapGroup[label as GroupFieldsLabel];
       if (key) {
-        group[key] = value;
+        if (key === "isTaxes" || key === "isBulk") {
+          group[key] = value === true || value === "true" || value === 1;
+        } else {
+          group[key] = value;
+        }
       }
     }
     return group;

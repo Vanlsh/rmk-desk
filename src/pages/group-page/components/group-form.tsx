@@ -19,6 +19,7 @@ import { toast } from "sonner";
 import { groupSchema, type GroupSchema } from "@/pages/utils/schemas";
 import { groupFields } from "@/pages/utils/constants";
 import { useProductStore } from "@/store/product";
+import { Checkbox } from "@/components/ui/checkbox";
 
 interface GroupFromProps {
   className?: string;
@@ -34,6 +35,8 @@ export const GroupFrom = ({ className }: GroupFromProps) => {
     defaultValues: {
       code: 0,
       name: "",
+      isTaxes: true,
+      isBulk: true,
     },
   });
 
@@ -77,20 +80,33 @@ export const GroupFrom = ({ className }: GroupFromProps) => {
               name={groupField.name}
               render={({ field }) => (
                 <FormItem>
-                  <div className="space-y-2 items-center py-1 ">
-                    <Label>{groupField.label}</Label>
-                    <FormControl>
-                      <Input
-                        placeholder={groupField.placeholder}
-                        {...field}
-                        value={
-                          typeof field.value === "string"
-                            ? field.value
-                            : String(field.value === 0 ? "" : field.value)
-                        }
-                      />
-                    </FormControl>
-                  </div>
+                  {groupField.type === "text" && (
+                    <div className="space-y-2 items-center py-1 ">
+                      <Label>{groupField.label}</Label>
+                      <FormControl>
+                        <Input
+                          placeholder={groupField.placeholder}
+                          {...field}
+                          value={
+                            typeof field.value === "string"
+                              ? field.value
+                              : String(field.value === 0 ? "" : field.value)
+                          }
+                        />
+                      </FormControl>
+                    </div>
+                  )}
+                  {groupField.type === "checkbox" && (
+                    <div className="flex gap-2 items-center py-1">
+                      <FormControl>
+                        <Checkbox
+                          checked={Boolean(field.value)}
+                          onCheckedChange={field.onChange}
+                        />
+                      </FormControl>
+                      <Label>{groupField.label}</Label>
+                    </div>
+                  )}
                   <FormMessage />
                 </FormItem>
               )}

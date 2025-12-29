@@ -34,14 +34,16 @@ export type ProductFieldLabel =
   | "Ваговий товар"
   | "Довільна ціна";
 
-export type GroupFieldsLabel = "Код" | "Назва";
-export type GroupFieldName = "code" | "name";
+export type GroupFieldsLabel = "Код" | "Назва" | "Is Taxes" | "Is Bulk";
+export type GroupFieldName = "code" | "name" | "isTaxes" | "isBulk";
 export type TaxFieldsLabel = "Код" | "Назва";
 export type TaxFieldName = "code" | "name";
 
 export const labelToNameMapGroup: Record<GroupFieldsLabel, GroupFieldName> = {
   Код: "code",
   Назва: "name",
+  "Is Taxes": "isTaxes",
+  "Is Bulk": "isBulk",
 };
 export const taxToNameMapGroup: Record<TaxFieldsLabel, TaxFieldName> = {
   Код: "code",
@@ -183,6 +185,20 @@ export const groupFields = [
     placeholder: "Введіть назву",
     type: "text",
     required: true,
+  },
+  {
+    label: "Is Taxes",
+    name: "isTaxes",
+    placeholder: "",
+    type: "checkbox",
+    required: false,
+  },
+  {
+    label: "Is Bulk",
+    name: "isBulk",
+    placeholder: "",
+    type: "checkbox",
+    required: false,
   },
 ] as const;
 
