@@ -10,6 +10,8 @@ export const groupSchema = z.object({
   name: z.string().min(1, {
     message: "Назва групи є обов'язковою",
   }),
+  isTaxes: z.boolean().optional().default(true),
+  isBulk: z.boolean().optional().default(true),
 });
 export const taxSchema = z.object({
   code: z.coerce
@@ -54,7 +56,7 @@ export const productSchema = z.object({
     .number<number>({
       message: "Ціна є обов'язковою",
     })
-    .min(0.01),
+    .min(0),
 
   // mrcPrice: z.coerce.number<number>({
   //   message: "МРЦ є обов'язковою",
