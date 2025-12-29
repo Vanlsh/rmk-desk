@@ -43,9 +43,11 @@ export function convertExcelData(
   });
 }
 
-export function covertToExcelData<
-  T extends Record<string, string | boolean | number>,
->(data: T[], keyMap: Record<string, string>) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+export function covertToExcelData<T extends Record<string, any>>(
+  data: T[],
+  keyMap: Record<string, string>
+) {
   return data.map((item) => {
     const convertedObject: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(keyMap)) {
