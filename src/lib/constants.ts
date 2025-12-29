@@ -11,7 +11,7 @@ export const editProductRoute: Routing = {
 export const programRouts: Routing[] = [
   { path: "/", label: "Товари", subPath: [newProductRoute, editProductRoute] },
   { path: "/group", label: "Групи" },
-  { path: "/tax", label: "Податки" },
+  // { path: "/tax", label: "Податки" },
 ];
 
 export const routing: Routing[] = [
