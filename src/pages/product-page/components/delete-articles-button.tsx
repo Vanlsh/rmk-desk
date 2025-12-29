@@ -13,7 +13,11 @@ export const DeleteArticlesButton = () => {
     if (!ip) {
       return showNoIpMessage();
     }
-    const isConfirmed = window.confirm("Видалити всі товари?");
+    const isConfirmed = await window.api.confirmDialog({
+      message: "Видалити всі товари?",
+      yesLabel: "Так",
+      noLabel: "Ні",
+    });
 
     if (!isConfirmed) return;
     startTransition(async () => {

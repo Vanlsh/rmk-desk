@@ -94,6 +94,30 @@ app.whenReady().then(() => {
     return { isMaximized: win.isMaximized() };
   });
 
+  ipcMain.handle("confirm-dialog", async (_event, options) => {
+    const {
+      message,
+      detail,
+      title = "Підтвердження",
+      yesLabel = "Так",
+      noLabel = "Ні",
+    } = options || {};
+
+    const browserWindow = BrowserWindow.getFocusedWindow();
+
+    const { response } = await dialog.showMessageBox(browserWindow ?? undefined, {
+      type: "question",
+      message,
+      detail,
+      title,
+      buttons: [yesLabel, noLabel],
+      defaultId: 0,
+      cancelId: 1,
+    });
+
+    return response === 0;
+  });
+
   ipcMain.handle("set-articles", async (_, ip, data) => {
     return await setArticles({ ip, data });
   });

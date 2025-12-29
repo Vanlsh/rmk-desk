@@ -24,9 +24,11 @@ export const CheckUpdatesButton = () => {
 
       if (result.status === "downloaded") {
         toast.success(`Оновлення ${result.version} завантажено`);
-        const confirmInstall = window.confirm(
-          "Перезапустити додаток для встановлення оновлення?"
-        );
+        const confirmInstall = await window.api.confirmDialog({
+          message: "Перезапустити додаток для встановлення оновлення?",
+          yesLabel: "Так",
+          noLabel: "Ні",
+        });
         if (confirmInstall) {
           await window.api.installUpdate();
         } else {

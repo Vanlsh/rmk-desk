@@ -29,6 +29,7 @@ contextBridge.exposeInMainWorld("api", {
     ipcRenderer.invoke("download-excel", data, name, label),
   checkForUpdates: () => ipcRenderer.invoke("check-for-updates"),
   installUpdate: () => ipcRenderer.invoke("install-update"),
+  confirmDialog: (options) => ipcRenderer.invoke("confirm-dialog", options),
   onUpdateDownloadProgress: (callback) =>
     ipcRenderer.on("update-download-progress", (_event, info) =>
       callback(info)

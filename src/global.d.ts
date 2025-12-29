@@ -97,6 +97,13 @@ declare global {
       windowControl: (
         action: "minimize" | "maximize" | "unmaximize" | "close"
       ) => Promise<{ isMaximized: boolean } | void>;
+      confirmDialog: (options: {
+        message: string;
+        detail?: string;
+        title?: string;
+        yesLabel?: string;
+        noLabel?: string;
+      }) => Promise<boolean>;
     };
   }
 }

@@ -39,9 +39,12 @@ export const LoadFromXmlFile = () => {
       }
 
       const convertedData = convertExcelData(result.data);
-      const shouldKeepAmounts = window.confirm(
-        "Використати кількість з файлу? Натисніть «Скасувати», щоб встановити 0 для всіх товарів."
-      );
+      const shouldKeepAmounts = await window.api.confirmDialog({
+        message: "Використати кількість з файлу?",
+        detail: "Натисніть «Ні», щоб встановити 0 для всіх товарів.",
+        yesLabel: "Так",
+        noLabel: "Ні",
+      });
       const normalizedProducts = shouldKeepAmounts
         ? convertedData
         : convertedData.map((product) => ({ ...product, amount: 0 }));

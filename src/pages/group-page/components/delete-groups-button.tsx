@@ -13,7 +13,11 @@ export const DeleteGroupButton = () => {
       return showNoIpMessage();
     }
 
-    const isConfirmed = window.confirm("Видалити всі групи?");
+    const isConfirmed = await window.api.confirmDialog({
+      message: "Видалити всі групи?",
+      yesLabel: "Так",
+      noLabel: "Ні",
+    });
     if (!isConfirmed) return;
 
     startTransition(async () => {
