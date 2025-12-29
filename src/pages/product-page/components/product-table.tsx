@@ -19,7 +19,7 @@ export function ProductTableWrapper({ products }: { products: Product[] }) {
       cell: ({ row }) => `${row.original.price.toFixed(2)} грн`,
     },
     {
-      header: "Id Податоку",
+      header: "Код податку",
       accessorKey: "tax",
       cell: ({ row }) => `${row.original.tax}`,
     },

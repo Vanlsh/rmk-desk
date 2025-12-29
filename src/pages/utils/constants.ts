@@ -31,6 +31,7 @@ export type ProductFieldLabel =
   | "Група"
   | "УКТЗЕД"
   | "Од. вим."
+  | "Код податку"
   | "Ваговий товар"
   | "Довільна ціна";
 
@@ -56,6 +57,7 @@ export const labelToNameMap: Record<ProductFieldLabel, ProductFieldName> = {
   "Серійний номер": "serial",
   Штрихкод: "barcode",
   "Глобальний код": "globalCode",
+  "Код податку": "tax",
   Податок: "tax",
   Ціна: "price",
   "Ваговий товар": "isWeight",
@@ -105,9 +107,9 @@ export const productFields = [
   //   required: true,
   // },
   {
-    label: "Податок",
+    label: "Код податку",
     name: "tax",
-    placeholder: "Введіть податок",
+    placeholder: "Введіть код податок",
     type: "text",
     required: true,
   },
