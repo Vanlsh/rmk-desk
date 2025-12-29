@@ -35,8 +35,8 @@ export const GroupFrom = ({ className }: GroupFromProps) => {
     defaultValues: {
       code: 0,
       name: "",
-      isTaxes: true,
-      isBulk: true,
+      isTaxes: false,
+      isBulk: false,
     },
   });
 

@@ -10,8 +10,8 @@ export const groupSchema = z.object({
   name: z.string().min(1, {
     message: "Назва групи є обов'язковою",
   }),
-  isTaxes: z.boolean().optional().default(true),
-  isBulk: z.boolean().optional().default(true),
+  isTaxes: z.boolean().optional().default(false),
+  isBulk: z.boolean().optional().default(false),
 });
 export const taxSchema = z.object({
   code: z.coerce
