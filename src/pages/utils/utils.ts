@@ -1,6 +1,7 @@
 import {
   labelToNameMap,
   labelToNameMapGroup,
+  taxToNameMapGroup,
   type GroupFieldName,
   type GroupFieldsLabel,
   type ProductFieldLabel,
@@ -42,10 +43,9 @@ export function convertExcelData(
   });
 }
 
-export function covertToExcelData<T extends Record<string, any>>(
-  data: T[],
-  keyMap: Record<string, string>
-) {
+export function covertToExcelData<
+  T extends Record<string, string | boolean | number>,
+>(data: T[], keyMap: Record<string, string>) {
   return data.map((item) => {
     const convertedObject: Record<string, unknown> = {};
     for (const [key, value] of Object.entries(keyMap)) {
@@ -89,7 +89,7 @@ export const convertExcelTax = (
     >;
 
     for (const [label, value] of Object.entries(item)) {
-      const key = labelToNameMapGroup[label as TaxFieldsLabel];
+      const key = taxToNameMapGroup[label as TaxFieldsLabel];
       if (key) {
         group[key] = value;
       }
